@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('profile', function (Blueprint $table) {
             $table->id();
-            $table->String('name');
-            $table->String('surname');
-            $table->Integer('age');
-            $table->String('job');
-            $table->Date('dateOfBirth');
+            $table->string('name');
+            $table->string('surname');
+            $table->integer('age');
+            $table->string('job');
+            $table->dateTime('dateOfBirth');
             $table->timestamps();
         });
     }

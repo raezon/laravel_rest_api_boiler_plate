@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BlogController;
+use App\Http\Controllers\API\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,3 +30,4 @@ Route::middleware('auth:sanctum')->group( function () {
 Route::resource('blogs', BlogController::class)->except([
     'create', 'store', 'update', 'destroy'
 ]);
+Route::resource('profiles', ProfileController::class);
