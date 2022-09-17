@@ -7,6 +7,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use Validator;
 use App\Models\Profile;
 use App\Http\Resources\Profile as ProfileResource;
+use Illuminate\Support\Facades\Storage;
    
 class ProfileController extends BaseController
 {
@@ -26,10 +27,15 @@ class ProfileController extends BaseController
             'job'=>'required',
             'dateOfBirth'=>'required'
         ]);
+        $pictureName = Storage::disk('public')->put('profile', $request->photo);
+
+        $input['photo']=$pictureName;
+
         if($validator->fails()){
             return $this->sendError($validator->errors());       
         }
         $profile = Profile::create($input);
+     
         return $this->sendResponse(new ProfileResource($profile), 'Profile created.');
     }
    
@@ -45,7 +51,8 @@ class ProfileController extends BaseController
     public function update(Request $request, Profile $profile)
     {
         $input = $request->all();
-
+        $pictureName = Storage::disk('public')->put('products', $request->photo);
+        
         $validator = Validator::make($input, [
             'name'=>'required',
             'surname'=>'required',
@@ -62,6 +69,8 @@ class ProfileController extends BaseController
         $profile->age = $input['age'];
         $profile->job = $input['job'];
         $profile->dateOfBirth = $input['dateOfBirth'];
+        if($pictureName)
+        $profile->photo=$pictureName;
         $profile->save();
         
         return $this->sendResponse(new ProfileResource($profile), 'Profile updated.');

@@ -7,18 +7,21 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use Validator;
 use App\Models\Blog;
 use App\Http\Resources\Blog as BlogResource;
-   
+use Illuminate\Support\Facades\Storage;
+
 class BlogController extends BaseController
 {
     public function index()
     {
         $blogs = Blog::all();
+        
         return $this->sendResponse(BlogResource::collection($blogs), 'Posts fetched.');
     }
     
     public function store(Request $request)
     {
         $input = $request->all();
+        $pictureName = Storage::disk('public')->put('blogs', $request->photo);
         $validator = Validator::make($input, [
             'title' => 'required',
             'description' => 'required'

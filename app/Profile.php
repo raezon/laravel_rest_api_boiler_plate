@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * @property integer $id
  * @property string $name
@@ -13,11 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $dateOfBirth
  * @property string $created_at
  * @property string $updated_at
- * @property string $photo
  */
 class Profile extends Model
 {
-    use HasFactory;
     /**
      * The table associated with the model.
      * 
@@ -35,5 +33,5 @@ class Profile extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'surname', 'age', 'job', 'dateOfBirth', 'created_at', 'updated_at', 'photo'];
+    protected $fillable = ['name', 'surname', 'age', 'job', 'dateOfBirth', 'created_at', 'updated_at'];
 }
